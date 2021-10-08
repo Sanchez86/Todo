@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 
 function App() {
-
   return (
-    <div className="App">
-
-    </div>
+    <div className="App" />
   );
 }
 
