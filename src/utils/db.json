@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "completed": false,
+    "label": "Example text"
+  },
+  {
+    "id": 2,
+    "completed": false,
+    "label": "Example text"
+  },
+  {
+    "id": 3,
+    "completed": false,
+    "label": "Example text"
+  }
+]
