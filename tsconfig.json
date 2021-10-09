@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "strictNullChecks": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "src"
   },
