@@ -1,9 +1,6 @@
-interface IDate {
-  'id': number,
-  'completed': boolean,
-  'label': string
-}
-const setData = (data: { id: number; completed: boolean; label: string }[]) => ({
+import IDate from 'interfaces';
+
+const setData = (data: IDate[]) => ({
   type: 'SET_DATA',
   payload: data,
 });

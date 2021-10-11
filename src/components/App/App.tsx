@@ -4,7 +4,9 @@ import './App.scss';
 
 function App() {
   return (
-    <ListItems />
+    <div className="todo">
+      <ListItems />
+    </div>
   );
 }
 

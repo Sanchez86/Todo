@@ -1,6 +1,12 @@
 .App {
   text-align: center;
 }
+.todo{
+  max-width: 360px;
+  margin: 0 auto;
+  background-color: #f5f3f3;
+  padding: 20px;
+}
 
 .App-logo {
   height: 40vmin;
@@ -27,6 +33,7 @@
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
