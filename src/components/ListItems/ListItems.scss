@@ -3,11 +3,13 @@
 .todo-list{
   list-style: none;
   padding-left: 0;
+  margin-bottom: 0;
 
   &__h2{
     font-size: 16px;
     font-weight: normal;
     font-family: 'Roboto', sans-serif;
+    margin: 15px 10px 10px 0;
   }
 
   &__item{
@@ -19,6 +21,10 @@
     border-radius: 15px;
     margin-bottom: 15px;
     padding: 15px;
+
+    &:last-child{
+      margin-bottom: 0;
+    }
 
     &.active{
       background-color: $color-done-active-light;

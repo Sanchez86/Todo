@@ -1,5 +1,5 @@
 export default interface IDate {
-  'id': number,
-  'completed': boolean,
-  'label': string
+  id: number,
+  completed: boolean,
+  label: string
 }

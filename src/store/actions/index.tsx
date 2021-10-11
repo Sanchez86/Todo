@@ -5,6 +5,12 @@ const setData = (data: IDate[]) => ({
   payload: data,
 });
 
+const addItem = (data: IDate) => ({
+  type: 'ADD_ITEM',
+  payload: data,
+});
+
 export {
   setData,
+  addItem,
 };

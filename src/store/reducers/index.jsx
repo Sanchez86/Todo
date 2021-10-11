@@ -9,6 +9,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         data: action.payload,
       };
+    case 'ADD_ITEM':
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+      };
     default:
       return state;
   }
