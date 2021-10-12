@@ -1,0 +1,55 @@
+@import 'src/styles/variables.scss';
+
+.add-item{
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  transition: .3s;
+  z-index: 5;
+  background-color: $color-blue;
+  padding: 20px;
+
+  &__input{
+    border-radius: 10px;
+    border: 0;
+    height: 26px;
+    padding-left: 10px;
+    &:focus{
+      border: 0;
+    }
+    &:focus-visible{
+      outline: 0;
+    }
+  }
+  &__add{
+    border-radius: 10px;
+    border: 0;
+    background-color: $color-white;
+    height: 26px;
+    width: 50px;
+    margin-left: 20px ;
+    i{
+      font-size: 14px;
+      color: $color-blue;
+    }
+  }
+
+  &.active{
+    bottom: 0;
+  }
+
+  &__toggle{
+    z-index: 10;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    background-color: $color-white;
+    border: 1px solid $color-blue;
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+    color: $color-blue;
+  }
+}
