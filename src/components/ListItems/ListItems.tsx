@@ -20,7 +20,7 @@ const ListItems = () => {
   const listIsCompleted = list.filter((item) => item.completed);
   const listIsNotCompleted = list.filter((item) => !item.completed);
 
-  const tasks = 0;
+  const tasks = listIsNotCompleted.length;
 
   return (
     <>
