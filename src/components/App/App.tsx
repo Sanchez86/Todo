@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ListItems from '../ListItems';
-import './App.scss';
 import AddItem from '../AddItem';
+import './App.scss';
 
 function App() {
   return (

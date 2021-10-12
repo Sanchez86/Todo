@@ -5,7 +5,7 @@ import './AddItem.scss';
 
 const AddItem = () => {
   const [label, setLabel] = useState('');
-  const [active, setActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const refInput = useRef(null);
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -30,23 +30,20 @@ const AddItem = () => {
   };
 
   const onToggle = () => {
-    setActive(!active);
+    setIsActive(!isActive);
   };
-
-  const isActive = active ? 'active' : '';
-  const isActivePlus = active ? 'minus' : 'plus';
 
   return (
     <div>
 
-      <div className={`add-item ${isActive}`}>
+      <div className={`add-item ${isActive ? 'active' : ''}`}>
         <input
           className="add-item__input"
           type="text"
           placeholder="Enter text"
           value={label}
           ref={refInput}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => onChange(e)}
+          onChange={onChange}
         />
         <button
           type="button"
@@ -62,7 +59,7 @@ const AddItem = () => {
         className="add-item__toggle"
         onClick={onToggle}
       >
-        <i className={`fa fa-${isActivePlus}`} aria-hidden="true" />
+        <i className={`fa fa-${isActive ? 'minus' : 'plus'}`} aria-hidden="true" />
       </button>
 
     </div>
