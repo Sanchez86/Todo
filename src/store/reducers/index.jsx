@@ -24,6 +24,11 @@ const reducer = (state = initialState, action) => {
         ],
       };
     }
+    case 'EDIT_ITEM':
+      return {
+        ...state,
+        temp: action.payload,
+      };
     default:
       return state;
   }
