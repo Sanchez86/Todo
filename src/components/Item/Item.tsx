@@ -1,7 +1,7 @@
 import React from 'react';
 import IDate from 'interfaces';
 import { useDispatch } from 'react-redux';
-import { changeItem, editItem } from 'store/actions';
+import { changeItem, setTemp } from 'store/actions';
 
 const Item = ({ id, label, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';
@@ -12,7 +12,7 @@ const Item = ({ id, label, completed }: IDate) => {
     dispatch(changeItem(idItem));
   };
   const onEdit = () => (
-    dispatch(editItem({ id, completed, label }))
+    dispatch(setTemp({ id, completed, label }))
   );
 
   return (
