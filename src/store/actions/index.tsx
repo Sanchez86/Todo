@@ -5,6 +5,12 @@ const setData = (data: IDate[]) => ({
   payload: data,
 });
 
+const changeItem = (id: number) => ({
+  type: 'CHANGE_ITEM',
+  payload: id,
+});
+
 export {
   setData,
+  changeItem,
 };
