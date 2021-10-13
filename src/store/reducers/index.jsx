@@ -12,10 +12,14 @@ const reducer = (state = initialState, action) => {
         data: action.payload,
       };
     case ADD_ITEM:
-      return {
+    {
+      const newData = {
         ...state,
         data: [...state.data, action.payload],
       };
+      localStorage.setItem('data', JSON.stringify(newData));
+      return newData;
+    }
     default:
       return state;
   }

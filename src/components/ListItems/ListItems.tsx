@@ -12,7 +12,15 @@ const ListItems = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setData(data));
+    const lsData = localStorage.getItem('data');
+
+    if (lsData) {
+      localStorage.setItem('data', lsData);
+      dispatch(setData(JSON.parse(lsData).data));
+    } else {
+      localStorage.setItem('data', JSON.stringify(data));
+      dispatch(setData(data));
+    }
   }, []);
 
   const list:Array<IDate> = useSelector((state:IState) => state.data);
