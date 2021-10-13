@@ -1,5 +1,9 @@
 import IDate from 'interfaces';
-import { SET_DATA, ADD_ITEM } from './actionTypes';
+import {
+  SET_DATA,
+  ADD_ITEM,
+  REMOVE_ITEM,
+} from './actionTypes';
 
 const setData = (data: IDate[]) => ({
   type: SET_DATA,
@@ -11,7 +15,13 @@ const addItem = (data: IDate) => ({
   payload: data,
 });
 
+const removeItem = (id: number) => ({
+  type: REMOVE_ITEM,
+  payload: id,
+});
+
 export {
   setData,
+  removeItem,
   addItem,
 };
