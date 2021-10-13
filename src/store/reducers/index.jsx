@@ -4,13 +4,16 @@ import {
   REMOVE_ITEM,
 } from '../actions/actionTypes';
 
+const lsData = localStorage.getItem('data');
+
 const initialState = {
-  data: [],
+  data: JSON.parse(lsData).data ? JSON.parse(lsData).data : [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DATA:
+
       return {
         ...state,
         data: action.payload,
@@ -28,10 +31,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         data: [...state.data, action.payload],
       };
+
       localStorage.setItem('data', JSON.stringify(newData));
+
       return newData;
     }
     default:
+
       return state;
   }
 };
