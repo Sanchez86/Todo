@@ -1,7 +1,7 @@
 import React from 'react';
 import IDate from 'interfaces';
 import { useDispatch } from 'react-redux';
-import { changeItem, setTemp } from 'store/actions';
+import { removeItem, changeItem, setTemp } from 'store/actions';
 
 const Item = ({ id, label, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';
@@ -14,6 +14,10 @@ const Item = ({ id, label, completed }: IDate) => {
   const onEdit = () => (
     dispatch(setTemp({ id, completed, label }))
   );
+
+  const onRemove = (idItem: number) => {
+    dispatch(removeItem(idItem));
+  };
 
   return (
     <li key={id} className={`todo-list__item ${isActive}`}>
@@ -29,15 +33,19 @@ const Item = ({ id, label, completed }: IDate) => {
         <label htmlFor={`id-${id}`} className="todo-list__label">{label}</label>
       </div>
       <div>
-        <button type="button" className="todo-list__remove">
-          <i className="fas fa-trash" />
-        </button>
         <button
           type="button"
           className="todo-list__edit"
           onClick={onEdit}
         >
           <i className="fas fa-pencil-alt" />
+        </button>
+        <button
+          type="button"
+          className="todo-list__remove"
+          onClick={() => onRemove(id)}
+        >
+          <i className="fas fa-trash" />
         </button>
       </div>
     </li>

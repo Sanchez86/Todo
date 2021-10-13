@@ -1,5 +1,11 @@
 import {
-  SET_DATA, ADD_ITEM, CHANGE_ITEM, SET_TEMP, UPDATE_ITEM,
+  SET_DATA,
+  ADD_ITEM,
+  CHANGE_ITEM,
+  SET_TEMP,
+  UPDATE_ITEM,
+  REMOVE_ITEM,
+
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -33,6 +39,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         temp: action.payload,
       };
+    case REMOVE_ITEM:
+    {
+      return {
+        ...state,
+        data: state.data.filter((item) => item.id !== action.payload),
+      };
+    }
     case ADD_ITEM:
       return {
         ...state,

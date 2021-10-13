@@ -1,6 +1,11 @@
 import IDate from 'interfaces';
 import {
-  SET_DATA, ADD_ITEM, CHANGE_ITEM, SET_TEMP, UPDATE_ITEM,
+  SET_DATA,
+  ADD_ITEM,
+  CHANGE_ITEM,
+  SET_TEMP,
+  UPDATE_ITEM,
+  REMOVE_ITEM,
 } from './actionTypes';
 
 const setData = (data: IDate[]) => ({
@@ -13,7 +18,6 @@ const addItem = (data: IDate) => ({
   payload: data,
 });
 
-// change status completed
 const changeItem = (id: number) => ({
   type: CHANGE_ITEM,
   payload: id,
@@ -30,10 +34,16 @@ const updateItem = (data: IDate) => ({
   payload: data,
 });
 
+const removeItem = (id: number) => ({
+  type: REMOVE_ITEM,
+  payload: id,
+});
+
 export {
   setData,
-  setTemp,
+  removeItem,
   addItem,
   changeItem,
   updateItem,
+  setTemp,
 };
