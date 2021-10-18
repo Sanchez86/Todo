@@ -1,20 +1,12 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setData } from 'store/actions';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import IDate from 'interfaces';
-import data from 'utils/db.json';
 import { IState } from './types';
 import Item from '../Item';
 
 import './ListItems.scss';
 
 const ListItems = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setData(data));
-  }, []);
-
   const list:Array<IDate> = useSelector((state:IState) => state.data);
 
   const listIsCompleted = list.filter((item) => item.completed);

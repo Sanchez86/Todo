@@ -1,5 +1,4 @@
 import {
-  SET_DATA,
   ADD_ITEM,
   CHANGE_ITEM,
   SET_TEMP,
@@ -8,18 +7,14 @@ import {
 
 } from '../actions/actionTypes';
 
+const lsData = localStorage.getItem('data');
+
 const initialState = {
-  data: [],
-  temp: {},
+  data: lsData ? JSON.parse(lsData).data : [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_DATA:
-      return {
-        ...state,
-        data: action.payload,
-      };
     case CHANGE_ITEM:
     {
       const itemIndex = state.data.findIndex((item) => item.id === action.payload);
@@ -46,11 +41,16 @@ const reducer = (state = initialState, action) => {
         data: state.data.filter((item) => item.id !== action.payload),
       };
     }
-    case ADD_ITEM:
-      return {
+    case ADD_ITEM: {
+      const newData = {
         ...state,
         data: [...state.data, action.payload],
       };
+
+      localStorage.setItem('data', JSON.stringify(newData));
+
+      return newData;
+    }
     case UPDATE_ITEM:
     {
       console.log(action.payload.id);
@@ -67,6 +67,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     default:
+
       return state;
   }
 };

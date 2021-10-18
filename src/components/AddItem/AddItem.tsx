@@ -13,12 +13,12 @@ const AddItem = () => {
   const temp = useSelector((state: ITemp) => state.temp);
 
   useEffect(() => {
-    if (temp.label) {
+    if (temp) {
       setIsActive(true);
       setLabel(temp.label);
       setIsTemp(true);
     }
-  }, [temp.label]);
+  }, [temp]);
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
