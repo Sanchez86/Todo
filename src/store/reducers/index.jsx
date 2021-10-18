@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case REMOVE_ITEM:
     {
-      const newData = JSON.parse(lsData).filter((item) => item.id !== action.payload);
+      const newData = state.data ? state.data.filter((item) => item.id !== action.payload) : [];
 
       localStorage.setItem('data', JSON.stringify(newData));
 
