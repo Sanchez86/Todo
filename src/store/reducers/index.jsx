@@ -1,5 +1,4 @@
 import {
-  SET_DATA,
   ADD_ITEM,
   REMOVE_ITEM,
 } from '../actions/actionTypes';
@@ -7,17 +6,11 @@ import {
 const lsData = localStorage.getItem('data');
 
 const initialState = {
-  data: JSON.parse(lsData).data ? JSON.parse(lsData).data : [],
+  data: lsData ? JSON.parse(lsData).data : [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_DATA:
-
-      return {
-        ...state,
-        data: action.payload,
-      };
     case REMOVE_ITEM:
     {
       return {
