@@ -6,16 +6,20 @@ import {
 const lsData = localStorage.getItem('data');
 
 const initialState = {
-  data: lsData ? JSON.parse(lsData).data : [],
+  data: lsData ? JSON.parse(lsData) : [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case REMOVE_ITEM:
     {
+      const newData = state.data ? state.data.filter((item) => item.id !== action.payload) : [];
+
+      localStorage.setItem('data', JSON.stringify(newData));
+
       return {
         ...state,
-        data: state.data.filter((item) => item.id !== action.payload),
+        data: newData,
       };
     }
     case ADD_ITEM:
@@ -25,7 +29,7 @@ const reducer = (state = initialState, action) => {
         data: [...state.data, action.payload],
       };
 
-      localStorage.setItem('data', JSON.stringify(newData));
+      localStorage.setItem('data', JSON.stringify(newData.data));
 
       return newData;
     }
