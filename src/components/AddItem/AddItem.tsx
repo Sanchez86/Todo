@@ -42,7 +42,6 @@ const AddItem = () => {
   };
 
   const onEdit = () => {
-    console.log(100);
     dispatch(updateItem(
       {
         label,
@@ -50,7 +49,19 @@ const AddItem = () => {
         id: temp.id,
       },
     ));
+
     setLabel('');
+    setIsActive(false);
+  };
+
+  const onClose = (e: any) => {
+    if (e.code === 'Enter') {
+      if (isTemp) {
+        onEdit();
+      } else {
+        onAdd();
+      }
+    }
   };
 
   const onToggle = () => {
@@ -72,6 +83,7 @@ const AddItem = () => {
           value={label}
           ref={refInput}
           onChange={onChange}
+          onKeyPress={onClose}
         />
         <button
           type="button"

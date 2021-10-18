@@ -20,16 +20,22 @@ const reducer = (state = initialState, action) => {
       const itemIndex = state.data.findIndex((item) => item.id === action.payload);
       const item = state.data.find((el) => el.id === action.payload);
       item.completed = !item.completed;
+
+      const newData = [
+        ...state.data.slice(0, itemIndex),
+        item,
+        ...state.data.slice(itemIndex + 1),
+      ];
+
+      localStorage.setItem('data', JSON.stringify(newData));
+
       return {
         ...state,
-        data: [
-          ...state.data.slice(0, itemIndex),
-          item,
-          ...state.data.slice(itemIndex + 1),
-        ],
+        data: newData,
       };
     }
     case SET_TEMP:
+
       return {
         ...state,
         temp: action.payload,
@@ -57,17 +63,20 @@ const reducer = (state = initialState, action) => {
     }
     case UPDATE_ITEM:
     {
-      console.log(action.payload.id);
       const itemIndex = state.data.findIndex((item) => item.id === action.payload.id);
       const item = state.data.find((el) => el.id === action.payload.id);
       item.label = action.payload.label;
+      const newData = [
+        ...state.data.slice(0, itemIndex),
+        item,
+        ...state.data.slice(itemIndex + 1),
+      ];
+
+      localStorage.setItem('data', JSON.stringify(newData));
+
       return {
         ...state,
-        data: [
-          ...state.data.slice(0, itemIndex),
-          item,
-          ...state.data.slice(itemIndex + 1),
-        ],
+        data: newData,
       };
     }
     default:

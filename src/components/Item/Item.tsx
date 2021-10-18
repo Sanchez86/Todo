@@ -1,7 +1,11 @@
 import React from 'react';
 import IDate from 'interfaces';
 import { useDispatch } from 'react-redux';
-import { removeItem, changeItem, setTemp } from 'store/actions';
+import {
+  removeItem,
+  changeItem,
+  setTemp,
+} from 'store/actions';
 
 const Item = ({ id, label, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';
