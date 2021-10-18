@@ -14,12 +14,12 @@ const reducer = (state = initialState, action) => {
     case REMOVE_ITEM:
     {
       const newData = JSON.parse(lsData).filter((item) => item.id !== action.payload);
-      localStorage.removeItem('data');
+
       localStorage.setItem('data', JSON.stringify(newData));
 
       return {
         ...state,
-        data: state.data.filter((item) => item.id !== action.payload),
+        data: newData,
       };
     }
     case ADD_ITEM:
