@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IDate from 'interfaces';
 
 const Item = ({ id, label, completed }: IDate) => {
@@ -10,7 +11,7 @@ const Item = ({ id, label, completed }: IDate) => {
         <button type="button" className="todo-list__done">
           <i className="fas fa-check-circle" />
         </button>
-        <div className="todo-list__label">{label}</div>
+        <Link to={`/tasks?id=${id}`} className="todo-list__label">{label}</Link>
       </div>
       <button type="button" className="todo-list__remove">
         <i className="fas fa-trash" />

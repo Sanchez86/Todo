@@ -20,8 +20,6 @@ const ListItems = () => {
   const listIsCompleted = list.filter((item) => item.completed);
   const listIsNotCompleted = list.filter((item) => !item.completed);
 
-  const tasks = 0;
-
   return (
     <>
       <ul className="todo-list">
@@ -40,7 +38,7 @@ const ListItems = () => {
         <span>
           &nbsp;
           (
-          {tasks}
+          {listIsNotCompleted.length}
           )
         </span>
       </h2>
