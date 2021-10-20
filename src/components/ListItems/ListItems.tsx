@@ -26,6 +26,7 @@ const ListItems = () => {
         {
           listIsCompleted.map((item) => (
             <Item
+              key={item.id}
               id={item.id}
               label={item.label}
               completed={item.completed}
@@ -45,7 +46,7 @@ const ListItems = () => {
       <ul className="todo-list">
         {
           listIsNotCompleted.map((item) => (
-            <Item id={item.id} label={item.label} completed={item.completed} />
+            <Item key={item.id} id={item.id} label={item.label} completed={item.completed} />
           ))
         }
       </ul>

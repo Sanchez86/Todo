@@ -1,34 +1,19 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import IDate from '../../interfaces';
 import { IState } from './types';
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-const InfoItem = (match: any) => {
-  const query = useQuery();
-
+const InfoItem = ({ match }: any) => {
   const list:Array<IDate> = useSelector((state:IState) => state.data);
-  // const item = list.filter((elem) => elem.id === taskId.id);
-  const item = [1, 2];
-  console.log('query', query.get('id'));
-  console.log('match', match);
+  const item = list.filter((elem) => elem.id === +match.params.taskId);
 
   return (
     <div>
-      <p>hello</p>
       <div>
-        {item.map((elem) => (<div className="item">{elem}</div>))}
+        <div className="item">{item[0].id}</div>
       </div>
     </div>
   );
 };
-
-/* InfoItem.defaultProps = {
-  match: {},
-}; */
 
 export default InfoItem;

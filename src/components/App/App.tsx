@@ -14,7 +14,7 @@ function App() {
           <AddItem />
         </Route>
 
-        <Route path="/tasks" render={(props) => <InfoItem {...props} />} />
+        <Route path="/tasks/:taskId" component={InfoItem} />
       </Switch>
 
     </div>
