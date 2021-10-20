@@ -1,4 +1,5 @@
 @import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
 
 .todo-list{
   list-style: none;
@@ -6,7 +7,7 @@
   margin-bottom: 0;
 
   &__h2{
-    font-size: 16px;
+    @include fontSize(16);
     font-weight: normal;
     font-family: 'Roboto', sans-serif;
     margin: 15px 10px 10px 0;
@@ -31,6 +32,7 @@
       .todo-list__done{
         i{
           color: $color-done-active;
+          pointer-events: none;
         }
       }
       .todo-list__remove,
@@ -42,7 +44,7 @@
 
   &__label{
     margin: 0 10px;
-    font-size: 14px;
+    @include fontSize(12);
   }
 
   &__done{
@@ -50,8 +52,9 @@
     border: 0;
     align-self: flex-start;
     i{
+      pointer-events: none;
       color: $color-done;
-      font-size: 18px;
+      @include fontSize(18);
       transition: .3s;
     }
   }
@@ -61,15 +64,15 @@
     border: 0;
     i{
       color: $color-remove;
-      font-size: 18px;
+      @include fontSize(18);
     }
   }
   &__edit{
     background: none;
     border: 0;
     i{
-      color: #c1c1c1;
-      font-size: 18px;
+      color: $color-gray-light;
+      @include fontSize(18);
     }
   }
 }

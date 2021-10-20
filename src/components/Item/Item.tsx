@@ -12,8 +12,8 @@ const Item = ({ id, label, completed }: IDate) => {
 
   const dispatch = useDispatch();
 
-  const onComplet = (idItem: number) => {
-    dispatch(changeItem(idItem));
+  const onComplet = (e: any) => {
+    dispatch(changeItem(parseInt(e.target.dataset.id, 10)));
   };
   const onEdit = () => (
     dispatch(setTemp({ id, completed, label }))
@@ -30,7 +30,8 @@ const Item = ({ id, label, completed }: IDate) => {
           id={`id-${id}`}
           type="button"
           className="todo-list__done"
-          onClick={() => onComplet(id)}
+          data-id={id}
+          onClick={onComplet}
         >
           <i className="fas fa-check-circle" />
         </button>

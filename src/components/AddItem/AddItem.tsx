@@ -1,8 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, updateItem } from 'store/actions';
-import './AddItem.scss';
 import { ITemp } from './types';
+import './AddItem.scss';
 
 const AddItem = () => {
   const [label, setLabel] = useState('');

@@ -1,3 +1,6 @@
+html, body{
+  font-size: 18px;
+}
 body {
   margin: 0;
   font-family: Roboto, 'Segoe UI', 'Roboto', 'Oxygen',
