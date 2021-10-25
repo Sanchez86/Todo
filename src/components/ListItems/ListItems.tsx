@@ -12,14 +12,13 @@ const ListItems = () => {
   const listIsCompleted = list.filter((item) => item.completed);
   const listIsNotCompleted = list.filter((item) => !item.completed);
 
-  const tasks = listIsNotCompleted.length;
-
   return (
     <>
       <ul className="todo-list">
         {
           listIsCompleted.map((item) => (
             <Item
+              key={item.id}
               id={item.id}
               label={item.label}
               completed={item.completed}
@@ -32,14 +31,19 @@ const ListItems = () => {
         <span>
           &nbsp;
           (
-          {tasks}
+          {listIsNotCompleted.length}
           )
         </span>
       </h2>
       <ul className="todo-list">
         {
           listIsNotCompleted.map((item) => (
-            <Item id={item.id} label={item.label} completed={item.completed} />
+            <Item
+              key={item.id}
+              id={item.id}
+              label={item.label}
+              completed={item.completed}
+            />
           ))
         }
       </ul>

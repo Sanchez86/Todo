@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IDate from 'interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem } from 'store/actions';
@@ -13,12 +14,12 @@ const Item = ({ id, label, completed }: IDate) => {
   };
 
   return (
-    <li key={id} className={`todo-list__item ${isActive}`}>
+    <li className={`todo-list__item ${isActive}`}>
       <div className="d-flex">
         <button type="button" className="todo-list__done">
           <i className="fas fa-check-circle" />
         </button>
-        <div className="todo-list__label">{label}</div>
+        <Link to={`/tasks/${id}`} className="todo-list__label">{label}</Link>
       </div>
       <button
         type="button"
