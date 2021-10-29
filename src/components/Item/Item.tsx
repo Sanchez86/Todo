@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IDate from 'interfaces';
 import { useDispatch } from 'react-redux';
 import {
@@ -24,7 +25,7 @@ const Item = ({ id, label, completed }: IDate) => {
   };
 
   return (
-    <li key={id} className={`todo-list__item ${isActive}`}>
+    <li className={`todo-list__item ${isActive}`}>
       <div className="d-flex">
         <button
           id={`id-${id}`}
@@ -35,7 +36,8 @@ const Item = ({ id, label, completed }: IDate) => {
         >
           <i className="fas fa-check-circle" />
         </button>
-        <label htmlFor={`id-${id}`} className="todo-list__label">{label}</label>
+
+        <Link to={`/tasks/${id}`} className="todo-list__label">{label}</Link>
       </div>
       <div>
         <button
@@ -52,6 +54,7 @@ const Item = ({ id, label, completed }: IDate) => {
         >
           <i className="fas fa-trash" />
         </button>
+
       </div>
     </li>
   );
