@@ -1,4 +1,5 @@
 @import 'src/styles/variables.scss';
+@import 'src/styles/mixins.scss';
 
 .add-item{
   position: absolute;
@@ -30,7 +31,7 @@
     width: 50px;
     margin-left: 20px ;
     i{
-      font-size: 14px;
+      @include fontSize(14);
       color: $color-blue;
     }
   }
@@ -49,7 +50,7 @@
     border: 1px solid $color-blue;
     width: 35px;
     height: 35px;
-    font-size: 13px;
+    @include fontSize(13);
     color: $color-blue;
   }
 }

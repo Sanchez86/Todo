@@ -1,12 +1,28 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addItem } from 'store/actions';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, updateItem } from 'store/actions';
+import { ITemp } from './types';
 import './AddItem.scss';
 
 const AddItem = () => {
   const [label, setLabel] = useState('');
   const [isActive, setIsActive] = useState(false);
   const refInput = useRef(null);
+  const [isTemp, setIsTemp] = useState(false);
+
+  const temp = useSelector((state: ITemp) => state.temp);
+
+  useEffect(() => {
+    if (temp) {
+      setIsActive(true);
+      setLabel(temp.label);
+      setIsTemp(true);
+    }
+  }, [temp]);
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
@@ -29,8 +45,35 @@ const AddItem = () => {
     }
   };
 
+  const onEdit = () => {
+    dispatch(updateItem(
+      {
+        label,
+        completed: false,
+        id: temp.id,
+      },
+    ));
+
+    setLabel('');
+    setIsActive(false);
+  };
+
+  const onClose = (e: any) => {
+    if (e.code === 'Enter') {
+      if (isTemp) {
+        onEdit();
+      } else {
+        onAdd();
+      }
+    }
+  };
+
   const onToggle = () => {
     setIsActive(!isActive);
+    if (!isActive) {
+      setLabel('');
+      setIsTemp(false);
+    }
   };
 
   return (
@@ -44,13 +87,14 @@ const AddItem = () => {
           value={label}
           ref={refInput}
           onChange={onChange}
+          onKeyPress={onClose}
         />
         <button
           type="button"
-          onClick={onAdd}
+          onClick={isTemp ? onEdit : onAdd}
           className="add-item__add"
         >
-          <i className="fas fa-paper-plane" />
+          <i className={`fas fa-${isTemp ? 'pencil-alt' : 'paper-plane'}`} />
         </button>
       </div>
 
