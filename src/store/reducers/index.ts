@@ -1,4 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { deepCopy } from 'utils/helper';
+import IDate from 'interfaces';
 
 import {
   addItem,
@@ -10,11 +12,14 @@ import {
 
 const lsData = localStorage.getItem('data');
 
-const initialState = {
+interface IinitialState {
+  data: Array<IDate>,
+  temp?: IDate
+}
+
+const initialState: IinitialState = {
   data: lsData ? JSON.parse(lsData) : [],
 };
-
-const deepCopy = (data) => JSON.parse(JSON.stringify(data));
 
 const reducer = createReducer(initialState, (builder) => {
   builder
