@@ -1,11 +1,12 @@
-import {
-  ADD_ITEM,
-  CHANGE_ITEM,
-  SET_TEMP,
-  UPDATE_ITEM,
-  REMOVE_ITEM,
+import { createReducer } from '@reduxjs/toolkit';
 
-} from '../actions/actionTypes';
+import {
+  addItem,
+  changeItem,
+  setTemp,
+  updateItem,
+  removeItem,
+} from '../actions';
 
 const lsData = localStorage.getItem('data');
 
@@ -13,76 +14,57 @@ const initialState = {
   data: lsData ? JSON.parse(lsData) : [],
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case CHANGE_ITEM:
-    {
-      const itemIndex = state.data.findIndex((item) => item.id === action.payload);
-      const item = state.data.find((el) => el.id === action.payload);
+const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+
+const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(addItem, (state, action) => {
+      const stateData = deepCopy(state.data);
+      localStorage.setItem('data', JSON.stringify([...stateData, action.payload]));
+
+      state.data = [...state.data, action.payload];
+    })
+    .addCase(changeItem, (state, action) => {
+      const stateData = deepCopy(state.data);
+      const itemIndex = stateData.findIndex((item) => item.id === action.payload);
+      const item = stateData.find((el) => el.id === action.payload);
       item.completed = !item.completed;
 
       const newData = [
-        ...state.data.slice(0, itemIndex),
+        ...stateData.slice(0, itemIndex),
         item,
-        ...state.data.slice(itemIndex + 1),
+        ...stateData.slice(itemIndex + 1),
       ];
 
       localStorage.setItem('data', JSON.stringify(newData));
 
-      return {
-        ...state,
-        data: newData,
-      };
-    }
-    case SET_TEMP:
+      state.data = newData;
+    })
+    .addCase(setTemp, (state, action) => {
+      state.temp = action.payload;
+    })
+    .addCase(updateItem, (state, action) => {
+      const stateData = deepCopy(state.data);
+      const itemIndex = stateData.findIndex((item) => item.id === action.payload.id);
+      const item = stateData.find((el) => el.id === action.payload.id);
+      item.label = action.payload.label;
+      const newData = [
+        ...stateData.slice(0, itemIndex),
+        item,
+        ...stateData.slice(itemIndex + 1),
+      ];
 
-      return {
-        ...state,
-        temp: action.payload,
-      };
-    case REMOVE_ITEM:
-    {
+      localStorage.setItem('data', JSON.stringify(newData));
+
+      state.data = newData;
+    })
+    .addCase(removeItem, (state, action) => {
       const newData = state.data ? state.data.filter((item) => item.id !== action.payload) : [];
 
       localStorage.setItem('data', JSON.stringify(newData));
 
-      return {
-        ...state,
-        data: newData,
-      };
-    }
-    case ADD_ITEM: {
-      const newData = {
-        ...state,
-        data: [...state.data, action.payload],
-      };
-
-      localStorage.setItem('data', JSON.stringify(newData.data));
-
-      return newData;
-    }
-    case UPDATE_ITEM:
-    {
-      const itemIndex = state.data.findIndex((item) => item.id === action.payload.id);
-      const item = state.data.find((el) => el.id === action.payload.id);
-      item.label = action.payload.label;
-      const newData = [
-        ...state.data.slice(0, itemIndex),
-        item,
-        ...state.data.slice(itemIndex + 1),
-      ];
-
-      localStorage.setItem('data', JSON.stringify(newData));
-
-      return {
-        ...state,
-        data: newData,
-      };
-    }
-    default:
-
-      return state;
-  }
-};
+      state.data = newData;
+    });
+});
 
 export default reducer;
