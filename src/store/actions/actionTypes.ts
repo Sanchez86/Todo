@@ -1,5 +1,0 @@
-export const ADD_ITEM = 'ADD_ITEM' as string;
-export const CHANGE_ITEM = 'CHANGE_ITEM' as string;
-export const SET_TEMP = 'SET_TEMP' as string;
-export const UPDATE_ITEM = 'UPDATE_ITEM' as string;
-export const REMOVE_ITEM = 'REMOVE_ITEM' as string;

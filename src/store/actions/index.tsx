@@ -1,37 +1,16 @@
+import { createAction } from '@reduxjs/toolkit';
 import IDate from 'interfaces';
-import {
-  ADD_ITEM,
-  CHANGE_ITEM,
-  SET_TEMP,
-  UPDATE_ITEM,
-  REMOVE_ITEM,
-} from './actionTypes';
 
-const addItem = (data: IDate) => ({
-  type: ADD_ITEM,
-  payload: data,
-});
+const addItem = createAction<IDate>('ADD_ITEM');
 
-const changeItem = (id: number) => ({
-  type: CHANGE_ITEM,
-  payload: id,
-});
+const changeItem = createAction<number>('CHANGE_ITEM');
 
 // set Temp for change label
-const setTemp = (data: IDate) => ({
-  type: SET_TEMP,
-  payload: data,
-});
+const setTemp = createAction<IDate>('SET_TEMP');
 
-const updateItem = (data: IDate) => ({
-  type: UPDATE_ITEM,
-  payload: data,
-});
+const updateItem = createAction<IDate>('UPDATE_ITEM');
 
-const removeItem = (id: number) => ({
-  type: REMOVE_ITEM,
-  payload: id,
-});
+const removeItem = createAction<number>('REMOVE_ITEM');
 
 export {
   removeItem,
