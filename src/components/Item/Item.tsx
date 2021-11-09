@@ -8,7 +8,7 @@ import {
   setTemp,
 } from 'store/actions';
 
-const Item = ({ id, label, completed }: IDate) => {
+const Item = ({ id, title, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';
 
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Item = ({ id, label, completed }: IDate) => {
     dispatch(changeItem(parseInt(e.target.dataset.id, 10)));
   };
   const onEdit = () => (
-    dispatch(setTemp({ id, completed, label }))
+    dispatch(setTemp({ id, completed, title }))
   );
 
   const onRemove = (idItem: number) => {
@@ -37,9 +37,9 @@ const Item = ({ id, label, completed }: IDate) => {
           <i className="fas fa-check-circle" />
         </button>
 
-        <Link to={`/tasks/${id}`} className="todo-list__label">{label}</Link>
+        <Link to={`/tasks/${id}`} className="todo-list__label">{title}</Link>
       </div>
-      <div>
+      <div className="d-flex">
         <button
           type="button"
           className="todo-list__edit"

@@ -8,6 +8,7 @@ import {
   setTemp,
   updateItem,
   removeItem,
+  setTodoData,
 } from '../actions';
 
 const lsData = localStorage.getItem('data');
@@ -23,6 +24,11 @@ const initialState: IinitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setTodoData, (state, action) => {
+      const stateData = deepCopy(state.data);
+      localStorage.setItem('data', JSON.stringify([...stateData, ...action.payload]));
+      state.data = [...state.data, ...action.payload];
+    })
     .addCase(addItem, (state, action) => {
       const stateData = deepCopy(state.data);
       localStorage.setItem('data', JSON.stringify([...stateData, action.payload]));
@@ -52,7 +58,7 @@ const reducer = createReducer(initialState, (builder) => {
       const stateData = deepCopy(state.data);
       const itemIndex = stateData.findIndex((item) => item.id === action.payload.id);
       const item = stateData.find((el) => el.id === action.payload.id);
-      item.label = action.payload.label;
+      item.title = action.payload.title;
       const newData = [
         ...stateData.slice(0, itemIndex),
         item,

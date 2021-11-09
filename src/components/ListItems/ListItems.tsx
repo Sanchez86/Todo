@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import IDate from 'interfaces';
 import { IState } from './types';
 import Item from '../Item';
@@ -7,6 +7,7 @@ import Item from '../Item';
 import './ListItems.scss';
 
 const ListItems = () => {
+  const dispatch = useDispatch();
   const list:Array<IDate> = useSelector((state:IState) => state.data);
 
   const listIsCompleted = list.filter((item) => item.completed);
@@ -14,13 +15,20 @@ const ListItems = () => {
 
   return (
     <>
+      <button
+        type="button"
+        className="mb-3 btn btn-dark"
+        onClick={() => dispatch({ type: 'GET_TODO_DATA' })}
+      >
+        Get data
+      </button>
       <ul className="todo-list">
         {
           listIsCompleted.map((item) => (
             <Item
               key={item.id}
               id={item.id}
-              label={item.label}
+              title={item.title}
               completed={item.completed}
             />
           ))
@@ -41,7 +49,7 @@ const ListItems = () => {
             <Item
               key={item.id}
               id={item.id}
-              label={item.label}
+              title={item.title}
               completed={item.completed}
             />
           ))

@@ -9,7 +9,7 @@ import { ITemp } from './types';
 import './AddItem.scss';
 
 const AddItem = () => {
-  const [label, setLabel] = useState('');
+  const [title, setTitle] = useState('');
   const [isActive, setIsActive] = useState(false);
   const refInput = useRef(null);
   const [isTemp, setIsTemp] = useState(false);
@@ -19,42 +19,42 @@ const AddItem = () => {
   useEffect(() => {
     if (temp) {
       setIsActive(true);
-      setLabel(temp.label);
+      setTitle(temp.title);
       setIsTemp(true);
     }
   }, [temp]);
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setLabel(e.target.value);
+    setTitle(e.target.value);
   };
 
   const dispatch = useDispatch();
 
   const onAdd = () => {
-    if (label === '') {
+    if (title === '') {
       refInput.current.focus();
     } else {
       dispatch(addItem(
         {
-          label,
+          title,
           completed: false,
           id: Date.now(),
         },
       ));
-      setLabel('');
+      setTitle('');
     }
   };
 
   const onEdit = () => {
     dispatch(updateItem(
       {
-        label,
+        title,
         completed: false,
         id: temp.id,
       },
     ));
 
-    setLabel('');
+    setTitle('');
     setIsActive(false);
   };
 
@@ -71,7 +71,7 @@ const AddItem = () => {
   const onToggle = () => {
     setIsActive(!isActive);
     if (!isActive) {
-      setLabel('');
+      setTitle('');
       setIsTemp(false);
     }
   };
@@ -84,7 +84,7 @@ const AddItem = () => {
           className="add-item__input"
           type="text"
           placeholder="Enter text"
-          value={label}
+          value={title}
           ref={refInput}
           onChange={onChange}
           onKeyPress={onClose}
