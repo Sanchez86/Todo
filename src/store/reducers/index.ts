@@ -7,27 +7,61 @@ import {
   changeItem,
   setTemp,
   updateItem,
-  removeItem,
-  setTodoData,
 } from '../actions';
+
+import {
+  loadTodosRequest,
+  loadTodosResponse,
+  loadTodosFailure,
+} from '../actions/load-todos';
+
+import {
+  removeTodosRequest,
+  removeTodosResponse,
+  removeTodosFailure,
+} from '../actions/remove-todo';
 
 const lsData = localStorage.getItem('data');
 
-interface IinitialState {
+export interface IinitialState {
   data: Array<IDate>,
-  temp?: IDate
+  temp?: IDate,
+  isLoading: boolean,
+  error: string
 }
 
 const initialState: IinitialState = {
   data: lsData ? JSON.parse(lsData) : [],
+  isLoading: false,
+  error: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setTodoData, (state, action) => {
-      const stateData = deepCopy(state.data);
-      localStorage.setItem('data', JSON.stringify([...stateData, ...action.payload]));
-      state.data = [...state.data, ...action.payload];
+    .addCase(removeTodosRequest, (state, action) => { // запрос
+      const elem = state.data.find((item) => item.id === action.payload);
+      elem.isLoading = true;
+      state.isLoading = true;
+      state.error = ''; // обнулили
+    })
+    .addCase(removeTodosResponse, (state, action) => { // ответ
+      // state.isLoading = false;
+      const newData = state.data.filter((item) => item.id !== action.payload.id);
+      state.data = newData;
+      localStorage.setItem('data', JSON.stringify(newData));
+    })
+    .addCase(loadTodosRequest, (state) => { // запрос
+      state.isLoading = true;
+      state.error = ''; // обнулили
+    })
+    .addCase(loadTodosResponse, (state, action) => { // ответ
+      localStorage.setItem('data', JSON.stringify(action.payload));
+      state.data = action.payload;
+      state.isLoading = false;
+    })
+    .addCase(loadTodosFailure, (state, action) => { // ошибка
+      state.isLoading = false;
+      state.error = action.payload;
     })
     .addCase(addItem, (state, action) => {
       const stateData = deepCopy(state.data);
@@ -64,13 +98,6 @@ const reducer = createReducer(initialState, (builder) => {
         item,
         ...stateData.slice(itemIndex + 1),
       ];
-
-      localStorage.setItem('data', JSON.stringify(newData));
-
-      state.data = newData;
-    })
-    .addCase(removeItem, (state, action) => {
-      const newData = state.data ? state.data.filter((item) => item.id !== action.payload) : [];
 
       localStorage.setItem('data', JSON.stringify(newData));
 

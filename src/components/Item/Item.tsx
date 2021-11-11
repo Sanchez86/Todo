@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import IDate from 'interfaces';
-import { useDispatch } from 'react-redux';
+import { IinitialState } from 'store/reducers';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  removeItem,
   changeItem,
   setTemp,
 } from 'store/actions';
+import Loader from '../Loader';
+import { removeTodosRequest } from '../../store/actions/remove-todo';
 
 const Item = ({ id, title, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';
@@ -21,8 +23,12 @@ const Item = ({ id, title, completed }: IDate) => {
   );
 
   const onRemove = (idItem: number) => {
-    dispatch(removeItem(idItem));
+    dispatch(removeTodosRequest(idItem));
   };
+
+  const isLoading = useSelector(
+    (state: IinitialState) => state.data.find((item) => (item.id === id ? item.isLoading : '')),
+  );
 
   return (
     <li className={`todo-list__item ${isActive}`}>
@@ -56,6 +62,7 @@ const Item = ({ id, title, completed }: IDate) => {
         </button>
 
       </div>
+      { isLoading ? <Loader /> : '' }
     </li>
   );
 };

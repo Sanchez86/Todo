@@ -9,7 +9,8 @@ const apiClient = axios.create({
 });
 
 const API = {
-  getTodos: () => apiClient.get('/users/1/todos'),
+  getTodos: () => apiClient.get('/users/1/todos').then((data) => data),
+  removeTodos: (id: number) => apiClient.delete(`/posts/${id}`),
 };
 
 export default API;

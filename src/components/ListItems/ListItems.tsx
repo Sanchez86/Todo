@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IDate from 'interfaces';
+import { loadTodosRequest } from 'store/actions/load-todos';
 import { IState } from './types';
 import Item from '../Item';
 
@@ -13,15 +14,12 @@ const ListItems = () => {
   const listIsCompleted = list.filter((item) => item.completed);
   const listIsNotCompleted = list.filter((item) => !item.completed);
 
+  useEffect(() => {
+    dispatch(loadTodosRequest());
+  }, []);
+
   return (
     <>
-      <button
-        type="button"
-        className="mb-3 btn btn-dark"
-        onClick={() => dispatch({ type: 'GET_TODO_DATA' })}
-      >
-        Get data
-      </button>
       <ul className="todo-list">
         {
           listIsCompleted.map((item) => (

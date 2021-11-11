@@ -1,20 +1,24 @@
-import { takeEvery, put } from 'redux-saga/effects';
-import API from 'utils/api';
-import IDate from 'interfaces';
-
-export function* workerSaga() {
-  let data: Array<IDate> = [];
-  yield API.getTodos().then((res) => {
-    data = res.data;
-  });
-
-  yield put({ type: 'SET_TODO_DATA', payload: data });
-}
-
-export function* watchClickSaga() {
-  yield takeEvery('GET_TODO_DATA', workerSaga);
-}
+import { spawn, call, all } from 'redux-saga/effects';
+import watcherLoadTodos from './load-todos';
+import watcherRemoveTodos from './remove-todo';
 
 export default function* rootSaga() {
-  yield watchClickSaga();
+  yield spawn(watcherLoadTodos);
+  yield spawn(watcherRemoveTodos);
+
+  /* const sagas = [watcherLoadTodos, watcherRemoveTodos];
+
+  const retrySagas = yield sagas.map((saga) => {
+    return spawn(function* () {
+      while(true) {
+        try{
+          yield call(saga);
+          break;
+        } catch {
+          console.log(e);
+        }
+      }
+    });
+  });
+  yield all(retrySagas); */
 }
