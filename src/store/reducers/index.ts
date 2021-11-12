@@ -21,6 +21,12 @@ import {
   removeTodosFailure,
 } from '../actions/remove-todo';
 
+import {
+  addTodosRequest,
+  addTodosResponse,
+  addTodosFailure,
+} from '../actions/add-todo';
+
 const lsData = localStorage.getItem('data');
 
 export interface IinitialState {
@@ -38,6 +44,20 @@ const initialState: IinitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(addTodosRequest, (state, action) => { // запрос
+      state.isLoading = true;
+      state.error = ''; // обнулили
+    })
+    .addCase(addTodosResponse, (state, action) => {
+      const stateData = deepCopy(state.data);
+      localStorage.setItem('data', JSON.stringify([...stateData, action.payload]));
+
+      state.data = [...state.data, action.payload.data];
+    })
+    .addCase(addTodosFailure, (state, action) => { // ошибка
+      state.isLoading = false;
+      state.error = action.payload;
+    })
     .addCase(removeTodosRequest, (state, action) => { // запрос
       const elem = state.data.find((item) => item.id === action.payload);
       elem.isLoading = true;
@@ -45,10 +65,13 @@ const reducer = createReducer(initialState, (builder) => {
       state.error = ''; // обнулили
     })
     .addCase(removeTodosResponse, (state, action) => { // ответ
-      // state.isLoading = false;
       const newData = state.data.filter((item) => item.id !== action.payload.id);
       state.data = newData;
       localStorage.setItem('data', JSON.stringify(newData));
+    })
+    .addCase(removeTodosFailure, (state, action) => { // ошибка
+      state.isLoading = false;
+      state.error = action.payload;
     })
     .addCase(loadTodosRequest, (state) => { // запрос
       state.isLoading = true;
@@ -62,12 +85,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadTodosFailure, (state, action) => { // ошибка
       state.isLoading = false;
       state.error = action.payload;
-    })
-    .addCase(addItem, (state, action) => {
-      const stateData = deepCopy(state.data);
-      localStorage.setItem('data', JSON.stringify([...stateData, action.payload]));
-
-      state.data = [...state.data, action.payload];
     })
     .addCase(changeItem, (state, action) => {
       const stateData = deepCopy(state.data);

@@ -7,7 +7,7 @@ import Item from '../Item';
 
 import './ListItems.scss';
 
-const ListItems = () => {
+const ListItems: React.FC = () => {
   const dispatch = useDispatch();
   const list:Array<IDate> = useSelector((state:IState) => state.data);
 
@@ -16,7 +16,7 @@ const ListItems = () => {
 
   useEffect(() => {
     dispatch(loadTodosRequest());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

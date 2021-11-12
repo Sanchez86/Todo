@@ -7,7 +7,9 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }).concat(sagaMiddleware),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

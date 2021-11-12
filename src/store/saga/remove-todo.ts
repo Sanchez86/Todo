@@ -1,4 +1,4 @@
-import { takeEvery, put, fork } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 import API from 'utils/api';
 import {
   removeTodosRequest,

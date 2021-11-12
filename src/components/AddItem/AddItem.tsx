@@ -4,11 +4,12 @@ import React, {
   useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, updateItem } from 'store/actions';
+import { updateItem } from 'store/actions';
+import { addTodosRequest } from 'store/actions/add-todo';
 import { ITemp } from './types';
 import './AddItem.scss';
 
-const AddItem = () => {
+const AddItem: React.FC = () => {
   const [title, setTitle] = useState('');
   const [isActive, setIsActive] = useState(false);
   const refInput = useRef(null);
@@ -34,7 +35,7 @@ const AddItem = () => {
     if (title === '') {
       refInput.current.focus();
     } else {
-      dispatch(addItem(
+      dispatch(addTodosRequest(
         {
           title,
           completed: false,
