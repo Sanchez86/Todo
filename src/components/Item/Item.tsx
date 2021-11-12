@@ -7,8 +7,8 @@ import {
   changeItem,
   setTemp,
 } from 'store/actions';
+import { removeTodosRequest } from 'store/actions/remove-todo';
 import Loader from '../Loader';
-import { removeTodosRequest } from '../../store/actions/remove-todo';
 
 const Item = ({ id, title, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';

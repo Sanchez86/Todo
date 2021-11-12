@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ITodo } from '../../interfaces';
+import { ITodo } from 'interfaces';
 
 export const addTodosRequest = createAction<ITodo>('ADD_TODOS_REQUEST');
 export const addTodosResponse = createAction<{ result: string, data: ITodo }>('ADD_TODOS_RESPONSE');

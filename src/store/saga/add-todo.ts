@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import API from 'utils/api';
-import { ITodo } from '../../interfaces';
+import { ITodo } from 'interfaces';
 import {
   addTodosRequest,
   addTodosResponse,

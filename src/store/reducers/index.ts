@@ -3,7 +3,6 @@ import { deepCopy } from 'utils/helper';
 import IDate from 'interfaces';
 
 import {
-  addItem,
   changeItem,
   setTemp,
   updateItem,
@@ -44,7 +43,7 @@ const initialState: IinitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(addTodosRequest, (state, action) => { // запрос
+    .addCase(addTodosRequest, (state) => { // запрос
       state.isLoading = true;
       state.error = ''; // обнулили
     })

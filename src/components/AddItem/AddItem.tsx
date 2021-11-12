@@ -1,4 +1,5 @@
 import React, {
+  FC,
   useEffect,
   useRef,
   useState,
@@ -9,7 +10,7 @@ import { addTodosRequest } from 'store/actions/add-todo';
 import { ITemp } from './types';
 import './AddItem.scss';
 
-const AddItem: React.FC = () => {
+const AddItem: FC = () => {
   const [title, setTitle] = useState('');
   const [isActive, setIsActive] = useState(false);
   const refInput = useRef(null);
