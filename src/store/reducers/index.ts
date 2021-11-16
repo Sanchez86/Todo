@@ -5,7 +5,6 @@ import IDate from 'interfaces';
 import {
   changeItem,
   setTemp,
-  updateItem,
 } from '../actions';
 
 import {
@@ -25,6 +24,12 @@ import {
   addTodosResponse,
   addTodosFailure,
 } from '../actions/add-todo';
+
+import {
+  updateTodosRequest,
+  updateTodosResponse,
+  updateTodosFailure,
+} from '../actions/update-todo';
 
 const lsData = localStorage.getItem('data');
 
@@ -51,6 +56,8 @@ const reducer = createReducer(initialState, (builder) => {
       const stateData = deepCopy(state.data);
       localStorage.setItem('data', JSON.stringify([...stateData, action.payload]));
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       state.data = [...state.data, action.payload.data];
     })
     .addCase(addTodosFailure, (state, action) => { // ошибка
@@ -104,11 +111,15 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setTemp, (state, action) => {
       state.temp = action.payload;
     })
-    .addCase(updateItem, (state, action) => {
+    .addCase(updateTodosRequest, (state) => { // запрос
+      state.isLoading = true;
+      state.error = ''; // обнулили
+    })
+    .addCase(updateTodosResponse, (state, action) => {
       const stateData = deepCopy(state.data);
-      const itemIndex = stateData.findIndex((item) => item.id === action.payload.id);
-      const item = stateData.find((el) => el.id === action.payload.id);
-      item.title = action.payload.title;
+      const itemIndex = stateData.findIndex((item) => item.id === action.payload.data.id);
+      const item = stateData.find((el) => el.id === action.payload.data.id);
+      item.title = action.payload.data.title;
       const newData = [
         ...stateData.slice(0, itemIndex),
         item,
@@ -118,6 +129,10 @@ const reducer = createReducer(initialState, (builder) => {
       localStorage.setItem('data', JSON.stringify(newData));
 
       state.data = newData;
+    })
+    .addCase(updateTodosFailure, (state, action) => { // ошибка
+      state.isLoading = false;
+      state.error = action.payload;
     });
 });
 

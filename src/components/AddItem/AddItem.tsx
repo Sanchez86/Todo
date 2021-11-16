@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateItem } from 'store/actions';
+import { updateTodosRequest } from 'store/actions/update-todo';
 import { addTodosRequest } from 'store/actions/add-todo';
 import { ITemp } from './types';
 import './AddItem.scss';
@@ -48,11 +48,12 @@ const AddItem: FC = () => {
   };
 
   const onEdit = () => {
-    dispatch(updateItem(
+    dispatch(updateTodosRequest(
       {
-        title,
-        completed: false,
         id: temp.id,
+        title,
+        body: 'bar',
+        userId: 1,
       },
     ));
 
