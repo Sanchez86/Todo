@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import IDate from 'interfaces';
-import { IinitialState } from 'store/reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeItem,
   setTemp,
 } from 'store/actions';
 import { removeTodosRequest } from 'store/actions/remove-todo';
+import { selectIsLoading } from 'store/selectors';
 import Loader from '../Loader';
 
 const Item = ({ id, title, completed }: IDate) => {
@@ -26,9 +26,7 @@ const Item = ({ id, title, completed }: IDate) => {
     dispatch(removeTodosRequest(idItem));
   };
 
-  const isLoading = useSelector(
-    (state: IinitialState) => state.data.find((item) => (item.id === id ? item.isLoading : '')),
-  );
+  const isLoading: boolean = useSelector(selectIsLoading(id));
 
   return (
     <li className={`todo-list__item ${isActive}`}>

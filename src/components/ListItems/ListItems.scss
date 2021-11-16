@@ -5,6 +5,16 @@
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &__close{
+    max-height: calc(30vh - 58px);
+  }
+
+  &__open{
+    max-height: calc(70vh - 58px);
+  }
 
   &__h2{
     @include fontSize(16);

@@ -20,7 +20,7 @@ const ListItems: React.FC = () => {
 
   return (
     <>
-      <ul className="todo-list">
+      <ul className="todo-list todo-list__close">
         {
           listIsCompleted.map((item) => (
             <Item
@@ -41,7 +41,7 @@ const ListItems: React.FC = () => {
           )
         </span>
       </h2>
-      <ul className="todo-list">
+      <ul className="todo-list todo-list__open">
         {
           listIsNotCompleted.map((item) => (
             <Item

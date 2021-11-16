@@ -6,6 +6,7 @@ export interface ITodo {
 }
 
 export default interface IDate {
+  userId?: number
   id: number,
   completed: boolean,
   title: string,
