@@ -1,26 +1,32 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import IDate from 'interfaces';
+import { loadTodosRequest } from 'store/actions/load-todos';
 import { IState } from './types';
 import Item from '../Item';
 
 import './ListItems.scss';
 
-const ListItems = () => {
+const ListItems: React.FC = () => {
+  const dispatch = useDispatch();
   const list:Array<IDate> = useSelector((state:IState) => state.data);
 
   const listIsCompleted = list.filter((item) => item.completed);
   const listIsNotCompleted = list.filter((item) => !item.completed);
 
+  useEffect(() => {
+    dispatch(loadTodosRequest());
+  }, [dispatch]);
+
   return (
     <>
-      <ul className="todo-list">
+      <ul className="todo-list todo-list__close">
         {
           listIsCompleted.map((item) => (
             <Item
               key={item.id}
               id={item.id}
-              label={item.label}
+              title={item.title}
               completed={item.completed}
             />
           ))
@@ -35,13 +41,13 @@ const ListItems = () => {
           )
         </span>
       </h2>
-      <ul className="todo-list">
+      <ul className="todo-list todo-list__open">
         {
           listIsNotCompleted.map((item) => (
             <Item
               key={item.id}
               id={item.id}
-              label={item.label}
+              title={item.title}
               completed={item.completed}
             />
           ))

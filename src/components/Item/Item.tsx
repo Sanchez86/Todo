@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import IDate from 'interfaces';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  removeItem,
   changeItem,
   setTemp,
 } from 'store/actions';
+import { removeTodosRequest } from 'store/actions/remove-todo';
+import { selectIsLoading } from 'store/selectors';
+import Loader from '../Loader';
 
-const Item = ({ id, label, completed }: IDate) => {
+const Item = ({ id, title, completed }: IDate) => {
   const isActive: string = completed ? 'active' : '';
 
   const dispatch = useDispatch();
@@ -17,12 +19,14 @@ const Item = ({ id, label, completed }: IDate) => {
     dispatch(changeItem(parseInt(e.target.dataset.id, 10)));
   };
   const onEdit = () => (
-    dispatch(setTemp({ id, completed, label }))
+    dispatch(setTemp({ id, completed, title }))
   );
 
   const onRemove = (idItem: number) => {
-    dispatch(removeItem(idItem));
+    dispatch(removeTodosRequest(idItem));
   };
+
+  const isLoading: boolean = useSelector(selectIsLoading(id));
 
   return (
     <li className={`todo-list__item ${isActive}`}>
@@ -37,9 +41,9 @@ const Item = ({ id, label, completed }: IDate) => {
           <i className="fas fa-check-circle" />
         </button>
 
-        <Link to={`/tasks/${id}`} className="todo-list__label">{label}</Link>
+        <Link to={`/tasks/${id}`} className="todo-list__label">{title}</Link>
       </div>
-      <div>
+      <div className="d-flex">
         <button
           type="button"
           className="todo-list__edit"
@@ -56,6 +60,7 @@ const Item = ({ id, label, completed }: IDate) => {
         </button>
 
       </div>
+      { isLoading ? <Loader /> : '' }
     </li>
   );
 };

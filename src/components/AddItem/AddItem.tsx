@@ -1,15 +1,17 @@
 import React, {
+  FC,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, updateItem } from 'store/actions';
+import { updateTodosRequest } from 'store/actions/update-todo';
+import { addTodosRequest } from 'store/actions/add-todo';
 import { ITemp } from './types';
 import './AddItem.scss';
 
-const AddItem = () => {
-  const [label, setLabel] = useState('');
+const AddItem: FC = () => {
+  const [title, setTitle] = useState('');
   const [isActive, setIsActive] = useState(false);
   const refInput = useRef(null);
   const [isTemp, setIsTemp] = useState(false);
@@ -19,42 +21,43 @@ const AddItem = () => {
   useEffect(() => {
     if (temp) {
       setIsActive(true);
-      setLabel(temp.label);
+      setTitle(temp.title);
       setIsTemp(true);
     }
   }, [temp]);
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setLabel(e.target.value);
+    setTitle(e.target.value);
   };
 
   const dispatch = useDispatch();
 
   const onAdd = () => {
-    if (label === '') {
+    if (title === '') {
       refInput.current.focus();
     } else {
-      dispatch(addItem(
+      dispatch(addTodosRequest(
         {
-          label,
+          title,
           completed: false,
           id: Date.now(),
         },
       ));
-      setLabel('');
+      setTitle('');
     }
   };
 
   const onEdit = () => {
-    dispatch(updateItem(
+    dispatch(updateTodosRequest(
       {
-        label,
-        completed: false,
         id: temp.id,
+        title,
+        body: 'bar',
+        userId: 1,
       },
     ));
 
-    setLabel('');
+    setTitle('');
     setIsActive(false);
   };
 
@@ -71,7 +74,7 @@ const AddItem = () => {
   const onToggle = () => {
     setIsActive(!isActive);
     if (!isActive) {
-      setLabel('');
+      setTitle('');
       setIsTemp(false);
     }
   };
@@ -84,7 +87,7 @@ const AddItem = () => {
           className="add-item__input"
           type="text"
           placeholder="Enter text"
-          value={label}
+          value={title}
           ref={refInput}
           onChange={onChange}
           onKeyPress={onClose}

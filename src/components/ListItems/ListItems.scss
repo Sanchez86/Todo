@@ -5,6 +5,16 @@
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &__close{
+    max-height: calc(30vh - 58px);
+  }
+
+  &__open{
+    max-height: calc(70vh - 58px);
+  }
 
   &__h2{
     @include fontSize(16);
@@ -22,6 +32,7 @@
     border-radius: 15px;
     margin-bottom: 15px;
     padding: 15px;
+    position: relative;
 
     &:last-child{
       margin-bottom: 0;
@@ -63,7 +74,7 @@
     background: none;
     border: 0;
     i{
-      color: $color-remove;
+      color: $color-pink;
       @include fontSize(18);
     }
   }

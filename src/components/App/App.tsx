@@ -5,19 +5,17 @@ import AddItem from '../AddItem';
 import './App.scss';
 import InfoItem from '../InfoItem';
 
-function App() {
-  return (
-    <div className="todo">
-      <Switch>
-        <Route path="/" exact>
-          <ListItems />
-          <AddItem />
-        </Route>
+const App: React.FC = () => (
+  <div className="todo">
+    <Switch>
+      <Route path="/" exact>
+        <ListItems />
+        <AddItem />
+      </Route>
 
-        <Route path="/tasks/:taskId" component={InfoItem} />
-      </Switch>
+      <Route path="/tasks/:taskId" component={InfoItem} />
+    </Switch>
 
-    </div>
-  );
-}
+  </div>
+);
 export default App;
